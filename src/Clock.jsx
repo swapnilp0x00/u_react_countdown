@@ -4,6 +4,7 @@ import './App.css';
 class Clock extends Component{
   constructor(props){
     super(props);
+    // state of clock
     this.state = {
       days:0,
       hours:0,
@@ -15,20 +16,23 @@ class Clock extends Component{
   componentWillMount(){
     this.getTimeUntil(this.props.deadline);
   }
-  // after mounting component
+  // after mounting component calculate difference persecond and change state
   componentDidMount(){
     setInterval( () => this.getTimeUntil(this.props.deadline),1000);
   }
+
+  //calculate time between deadline and current time
   getTimeUntil(deadline){
     const time = Date.parse(deadline) - Date.parse(new Date());
     const seconds = Math.floor((time/1000) % 60);
     const minutes = Math.floor((time/(1000*60)) % 60);
     const hours = Math.floor((time/(1000*60*60)) % 24);
     const days = Math.floor((time/(1000*60*60*24)));
-    // console.log(days,hours,minutes,seconds);
+    console.log(days,hours,minutes,seconds);
     this.setState({days:days, hours:hours, minutes:minutes, seconds:seconds});
   }
 
+  // just to add leading zero on display
   leading0(num){
     return num < 10 ? '0'+num : num;
   }
